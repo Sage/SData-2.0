@@ -60,7 +60,7 @@ body {
   color:#373737;
   background: #212121;
   font-size: 16px;
-  font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -110,7 +110,7 @@ footer p {
 
 a {
   text-decoration: none;
-  color: #007edf;
+  color: #007f64;
   text-shadow: none;
 
   transition: color 0.5s ease;
@@ -126,13 +126,13 @@ a {
 }
 
 #main_content a:hover {
-  color: #0069ba;
-  text-shadow: #0090ff 0px 0px 2px;
+  color: #005442;
+  text-shadow: #ffffff 0px 0px 2px;
 }
 
 footer a:hover {
-  color: #43adff;
-  text-shadow: #0090ff 0px 0px 2px;
+ color: #ffffff;
+  text-shadow: #ffffff 0px 0px 2px;
 }
 
 em {
@@ -204,8 +204,10 @@ ul, ol, dl {
 }
 
 ul li {
-  list-style: inside;
-  padding-left: 20px;
+  list-style-position: outside;
+  list-style-type: disc;
+  margin-left: 40px;
+  padding-left: 10px; 
 }
 
 ol li {
@@ -285,7 +287,7 @@ Full-Width Styles
   z-index: 10;
   padding: 10px 50px 10px 10px;
   color: #fff;
-  background: url('../images/blacktocat.png') #0090ff no-repeat 95% 50%;
+  background: url('../images/blacktocat.png') #008066 no-repeat 95% 50%;
   font-weight: 700;
   box-shadow: 0 0 10px rgba(0,0,0,.5);
   border-bottom-left-radius: 2px;

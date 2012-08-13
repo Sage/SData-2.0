@@ -22,11 +22,10 @@
         <h1>Welcome ! </h1>
         <p>This repository provides technical information on the upcoming
           version 2.0 of the standard.</p>
-        <p>SData is a web toolkit, promoting the development of REST-orientated
-          services and their consumption. Complementing the small,
-          standards-based core (HTTP, ATOM, JSON), SData provides a variety of
-          optional mechanisms solving common implementation challenges in a
-          consistent manner.<br>
+        <p>SData is to be understood as a web toolkit promoting the development
+          of REST-orientated services and their consumption. Centered around a
+          small, standards-based core (HTTP, ATOM, JSON), SData provides a
+          choice of mechanisms solving common challenges in a consistent manner.<br>
         </p>
         <p>SData is successfully used to deliver a number of key projects and is
           recognized as an important building block in the Sage technology
