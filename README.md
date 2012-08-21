@@ -6,7 +6,7 @@ You may find the following information interesting (click on the links to downlo
 
 * [Approach](https://github.com/Sage/SData-2.0/blob/master/SData%202.0%20approach%20-%20v%20101.pdf?raw=true): The SData 2.0 approach document presents a number of key statements and goals that guide the current development of the standard
 
-* [Contracts](https://github.com/Sage/SData-2.0/blob/master/SData%202.0%20-%20contracts%20v%20101.pdf?raw=true): The Contracts document describes the concept of an SData contract, an area not clearly presented in the current version of the standard. It shows the role of contracts, describes the many shapes they may take and finishes by outlining some items that could be considered by contract developers.
+* [Contracts](https://github.com/Sage/SData-2.0/blob/master/SData%202.0%20-%20contracts%20v%20101.pdf?raw=true): The Contracts document describes the concept of an SData contract, an area not clearly presented in the current version of the standard. It shows the role of contracts, describes the many shapes they may take and finishes by outlining some items that could be considered by contract designers.
 
 * [Core](https://github.com/Sage/SData-2.0/blob/master/SData%202.0%20Core%20-%20v%20101.pdf?raw=true): SData 2.0 is a web toolkit allowing for a flexible, purpose-directed usage. Based on the existing SData 1.1 elements, the 2.0 version is organized as a small set of essentials (the Core) complemented by a wide variety of optional mechanisms and techniques that are solution orientated. In broad strokes, the core is quickly described:
     * compliance with HTTP rules and definitions 
