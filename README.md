@@ -1,6 +1,6 @@
 #Welcome to our SData 2.0 file repository
 
-This repository contains information on the developments in the upcoming SData 2.0 release. 
+This repository contains information on the developments in the upcoming SData 2.0 release. The contents are clarifications, extensions and amendments to the current [version 1.1](http://interop.sage.com/daisy/sdata/Introduction.html) of the standard.
 
 You may find the following information interesting (click on the links to download directly):
 
