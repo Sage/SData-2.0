@@ -17,4 +17,4 @@ The documents below form the technical core of  SData 2.0 (click on the links to
 * [Expressing metadata in JSON](https://github.com/Sage/SData-2.0/blob/master/SData%202%200%20Expressing%20metadata%20in%20JSON%20-%20v1.pdf?raw=true): The document describes how metadata surfaces in SData JSON responses. It defines the set of SData-recognized structural elements such as types and links as well as the manner in which metadata surfaces in SData JSON responses. The document also introduces prototypes, the JSON parallel to schemas.
 
 
-* [SageID integration](https://github.com/Sage/SData-2.0/blob/master/SData%202%200%20Sage%20ID%20Integration.pdf): defines how SData 2.0 compliant providers interact with the SageID authentication provider.
+* [SageID integration](https://github.com/Sage/SData-2.0/blob/master/SData%202%200%20Sage%20ID%20Integration.pdf?raw=true): defines how SData 2.0 compliant providers interact with the SageID authentication provider.
