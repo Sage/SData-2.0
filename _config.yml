@@ -1,0 +1,16 @@
+# Site settings
+title: SData 2.0
+email: sage@users.noreply.github.com
+description: Copyright Sage Technologies Limited 2009
+baseurl: "/SData-2.0"
+url: "http://sage.github.io"
+twitter_username:
+github_username:  sage
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+encoding: utf-8
+
+exclude: ['feed.xml']

@@ -1,0 +1,18 @@
+---
+---
+{% assign firstLoop = true %}
+[
+  {% for page in site.pages %}
+	{% if page.group != null %}
+		{% if firstLoop == false %},{% endif %}
+		{% assign firstLoop = false %}
+    {
+      "title"   : "{{ page.title }}",
+      "content" : {{ page.content | jsonify }},
+      "group"   : {% if (page.group == "core") or (page.group == "sync") %}"{{ page.group }}"{% else %}"sdata-20"{% endif %},
+      "url"     : "{{ page.url }}"
+    } 
+	{% comment %}{% unless forloop.last %},{% endunless %} OR {% if forloop.last and page.group != null %}{% else %},{% endif %} {% endcomment %}
+	{% endif %}
+  {% endfor %}
+]

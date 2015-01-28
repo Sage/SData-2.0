@@ -1,0 +1,330 @@
+<!--span>{{page.title}} - {{page.group}}</span-->
+<script>
+$(document).ready(function(){
+
+	document.title = "{{site.title}} - " + $('#breadcrumb > div > span.bc-page-title').text();
+	
+	var path = window.location.pathname;
+	var active = $("ul.navigation ul a[href*='"+path+"']").parent().parent();
+	//if(active.length == 0) active = $("ul.navigation > li > a[href*='"+path+"']").parent().find('ul');
+	{% assign id = {{page.name | replace:'.','_'}} %}
+	{% assign tmp = {{page.group | append:'_'}} %}
+	{% assign id = {{id | prepend:tmp}} %}
+
+	if(active.length == 0) active = $("a#{{id}}").parent().parent().find('ul.{{id}}');
+	//console.log(active.length);
+
+	$('ul.navigation ul').not(active).hide(); // hide all not active sub items
+	active.prev().addClass('active-top');	// set active to top level menu item
+	
+	// register items with sub items in main navigation
+	$('ul.navigation > li').next('ul').prev().addClass('top');
+
+	/*$('ul.navigation > li > a.childs-only').click(function(){
+		//$('ul.navigation ul').not(active).hide();
+		//$(this).parent().find('ul').not(active).slideToggle(200);
+		$(this).parent().find('ul').slideToggle("slow");
+	});*/
+  
+});
+</script>
+
+{% assign categories = "home|core|sync|sdata-20" | split: "|" %}
+
+<ul class="top-nav">
+	<li class="{% if page.group == 'home' %}active{% endif %}">
+		<a class="{% if page.group == 'home' %}active{% endif %}" id="home" href="{{site.baseurl}}/">Home</a>
+	</li>
+	<li class="{% if page.group == 'core' %}active{% endif %}">
+		<a id="core" class="{% if page.group == 'core' %}active{% endif %}" href="{{site.baseurl}}/pages/core/0100/">SData 1.1 Core</a>
+	</li>
+	<li class="{% if page.group == 'sync' %}active{% endif %}">
+		<a id="sync" class="{% if page.group == 'sync' %}active{% endif %}" href="{{site.baseurl}}/pages/sync/0000/">SData 1.1 Sync</a>
+	</li>
+	<li class="{% if page.group == 'sdata-20' %}active{% endif %}">
+		<a id="sdata-20" class="{% if page.group == 'sdata-20' %}active{% endif %}" href="{{site.baseurl}}/pages/20/01-0000/">SData 2.0</a>
+	</li>
+</ul>
+
+{% for category in categories %}
+<ul class="navigation {{category}}" style='display:{% if (category == "home") or (category != page.group) %}none{% else %}inline-block{% endif %}'>
+
+{% assign menuitem = 'top' %}
+{% assign id = '' %}
+{% assign isToplevelOpen = false %}
+
+{% for p in site.pages %}
+    {% if p.group == category %}
+		{% if p.level == 0 %}
+			{% if isToplevelOpen %} {% if menuitem == 'sub' %} </ul> {% endif %} <!--/li--> {% endif %}
+			{% assign isToplevelOpen = true %}
+			{% assign menuitem = 'top' %}
+			{% assign id = {{p.name | replace:'.','_'}} %}
+			{% assign tmp = {{p.group | append:'_'}} %}
+			{% assign id = {{id | prepend:tmp}} %}
+			<li {% if p.url == page.url %}class="activeli {{id}}"{% endif %}>
+				<a {% if p.layout != null %}id="{{p.group}}_{{p.name | replace:'.','_' }}" href="{{site.baseurl}}{{p.url}}"{% else %}class="childs-only" style="cursor: pointer;"{% endif %} {% if p.url == page.url %}class="active"{% endif %}>{{p.title}}</a>
+			</li>
+		{% endif %}
+		{% if p.level > 0 %}
+			{% if menuitem == 'top' %} <ul class="sub {{id}}"> {% endif %}
+			{% assign menuitem = 'sub' %}
+			
+				<li {% if p.url == page.url %}class="activeli"{% endif %}>
+					<a id="{{p.group}}_{{p.name | replace:'.','_' }}" href="{{site.baseurl}}{{p.url}}" {% if p.url == page.url %}class="active"{% endif %}>{{p.title}}</a>
+				</li>
+			
+		{% endif %}
+    {% endif %}
+{% endfor %}
+
+<!-- close tag(s) for last menu item -->
+{% if isToplevelOpen %} {% if menuitem == 'sub' %} </ul> {% endif %} </li> {% endif %}
+</ul>
+{% endfor %}
+
+<script type="text/javascript">
+
+function getInternetExplorerVersion()
+// Returns the version of Internet Explorer or a -1
+// (indicating the use of another browser).
+{
+  var rv = -1; // Default value assumes failure. 
+  var ua = navigator.userAgent;
+
+  // If user agent string contains "MSIE x.y", assume
+  // Internet Explorer and use "x.y" to determine the
+  // version.
+ 
+  var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+  if (re.exec(ua) != null) 
+    rv = parseFloat( RegExp.$1 );
+  return rv;
+
+}
+
+/*
+* id - target sidebar menu item
+*/
+function navigateTo (id)
+{
+	$('#sidemenu ul.navigation:visible').find('ul > li > a').removeClass('active');
+	//$('#sidemenu ul.navigation').find('ul > li > a').removeClass('active');
+	
+	var ul = $('#' + id).parent().parent();	// <ul><li><a id="id"></a></li></ul>
+	
+	{
+		if(!ul.is(':visible'))	// is sub items slided up? / invisible?
+		{
+			$('ul.navigation > li')
+			//.removeClass('active-top')
+			.find('a.active').removeClass('active');
+			$('ul.navigation > ul').slideUp(100, 'swing', function() {
+				$('ul.navigation > li').removeClass('active-top');
+			});
+			
+			if(ul.hasClass('sub'))	// is target in sub menu?
+			{
+				ul.prev()
+				//.addClass('active-top')
+				.find('a').addClass('active');	// set active top level menu item
+				ul.slideDown('fast', function() {
+					$(this).prev().addClass('active-top');
+				});
+			}
+		}
+		else if(ul.hasClass('navigation'))	// is target a top level menu item?
+		{
+			$('ul.navigation > ul').not('.' + id).slideUp(100, 'swing', function() {
+				$('ul.navigation > li').removeClass('active-top');
+			}); // slide up all sub menus instead target //??? not for navigation clicks, but for paging ???
+			
+			if ($('ul.' + id).length > 0)
+				$('ul.' + id).slideDown('fast', function() {
+					//$('ul.navigation > ul:visible').prev().addClass('active-top');
+					$(this).prev().addClass('active-top');
+				});
+			
+			$('ul.navigation > li')
+			//.removeClass('active-top')
+			.find('a.active').removeClass('active');
+		}
+	}
+	$('#' + id).addClass('active');	// set active target menu item
+}
+
+jQuery(document).ready(function($) {
+
+	switch(getInternetExplorerVersion())
+	{
+		case 7:
+		case 8:
+		case 9:
+			$('ul.navigation > li > a.childs-only').click(function(){
+				//$(this).parent().find('ul').slideToggle("slow");
+				$(this).parent().next().slideToggle("slow");
+			});
+			break;
+		
+		default: 
+		//var siteUrl = 'http://'+(document.location.hostname||document.location.host);
+		var siteUrl = '{{site.baseurl}}/pages/';
+		var ulType = 'content';
+
+		// Make sure that all clicked links that link to your internal website
+		// don't just reload the page but execute a History.pushState call
+		$(document).delegate('#sidemenu a[href^="'+siteUrl+'"], #sidemenu a[href^="{{site.baseurl}}"], .inner-content a[href^="'+siteUrl+'"], a.ajax[href^="'+siteUrl+'"], a.childs-only ', "click", function(e) {
+			
+			if($(this).hasClass('childs-only'))
+				//$(this).attr('href', $(this).parent().find('ul > li > a:first-of-type').attr('href'));
+				$(this).attr('href', $(this).parent().next().children(':first').find('a:first-of-type').attr('href'));
+			
+			//console.log(e);
+			//console.log($(this));
+			
+			// if search-result page => redirect to clicked page
+			if($('#content').find('a.search-result').length > 0 || $('#content').find('.outer-content').length == 0)
+			{
+				window.location.href = $(this).attr('href');
+			}
+			
+			e.preventDefault();
+			History.pushState({}, "", this.pathname);
+			
+			// sidemenu link?
+			ulType = $(this).parent().parent().is('ul') ? ($(this).parent().parent().hasClass('navigation') ? 'navigation' : $(this).parent().parent().hasClass('sub') ? 'sub' : $(this).parent().parent().hasClass('top-nav') ? 'top-nav' : 'content') : 'content';
+			
+			console.log(ulType);
+			
+			switch(ulType)
+			{
+				case 'top-nav':
+					
+					group = $(this).attr('id');
+					if(!$(this).hasClass('active'))
+					{
+						var self = this;
+						var prevTopnavItem = $('ul.top-nav > li.active');
+						
+						var activeNavigation = ($('ul.navigation:visible').length == 0) ? $('ul.navigation.home') : $('ul.navigation:visible');
+						//$('ul.navigation:visible').hide('fast', function(){	// hide navigation bar [1st version, oldest]
+						//$('ul.navigation').hide('fast', function(){	// hide navigation bar [update for home page => 4x calls]
+						activeNavigation.hide('fast', function(){	// hide navigation bar
+						
+							$(self).parent().animate({width: '100%'}, 'fast', function() {	// activate clicked top-nav item
+							
+								//$('ul.top-nav > li.active').animate({width: '69%'}, 'fast', function(){	// deactivate previous top-nav item
+								prevTopnavItem.animate({width: '69%'}, 'fast', function(){	// deactivate previous top-nav item
+									//$('ul.top-nav > li').removeClass('active');
+									prevTopnavItem.removeClass('active');
+								});
+								
+								if(group != 'home')
+								{
+									$('ul.'+group).show('fast', function(){	// show activated navigation bar
+										
+										$(self).parent().addClass('active');
+										//#$(this).find('ul').slideUp('fast');	// close all sub items
+										//$(this).children('li').removeClass('active-top');	// remove all active flags from top level menu items
+										
+										if($(this).find('ul.'+$(this).children().first().find('a').attr('id')).length > 0) // if found <ul class="x"> with class of 1st top level menu item's <a id="x"> id (1st item has sub items)
+										{
+											$(this).children().first().addClass('active-top');
+											sub = $(this).find('ul.'+$(this).children().first().find('a').attr('id'));
+											$('#sidemenu ul > ul > li > a').removeClass('active');
+											//$(this).children().first().addClass('active-top'); // set active 1st top level menu item (TODO: somewhere it does too)
+											sub.slideDown('fast'); // open sub menu items
+											
+											if($(this).children().first().hasClass('childs-only')) 
+												sub.children(':first').find('a').addClass('active');
+										}
+									});
+								}
+								else
+									$(self).parent().addClass('active');
+							});
+						});
+					}
+					
+					$('ul.top-nav > li').find('a.active').removeClass('active');
+					$(this).addClass('active');
+					break;
+				
+				case 'navigation':
+
+					$('ul.navigation > li').removeClass('active-top').find('a.active').removeClass('active');
+					
+					$('ul.navigation > ul').slideUp(100, 'swing');
+					
+					// top with subitems
+					if($(this).parent().next().is('ul'))
+					{
+						$(this).parent().next().
+						children().children().removeClass('active');
+						
+						//$(this).parent().addClass('active-top');
+						$(this).parent().next().slideToggle('fast');
+						if($(this).hasClass('childs-only')) $(this).parent().next().children(':first').find('a').addClass('active');
+					}
+					else {} // empty top
+
+					$(this).addClass('active');
+					$('ul.navigation > li').removeClass('active-top');
+					$(this).parent().addClass('active-top');
+					break;
+				
+				case 'sub':
+					$('#sidemenu ul > li > ul > li > a').removeClass('active');
+					$(this).addClass('active');
+					break;
+				
+				default:
+					/* moved to navigateTo(id) function */
+			}
+		});
+
+		// Catch all History stateChange events
+		History.Adapter.bind(window, 'statechange', function(){
+			var State = History.getState();
+
+			// Load the new state's URL via an Ajax Call
+			$.get(State.url, function(data){
+
+				// Replace previous/next buttons on page
+				$('#contentBorderTop').html($(data).find('#prevNextTop'));
+				$('#contentBorderBottom').html($(data).find('#prevNextBottom'));
+				
+				// Replace the content
+				$('.outer-content').html($(data).find('.inner-content'));
+				
+				// refresh breadcrumb
+				$('#breadcrumb').html($(data).find('#breadcrumb > div'));
+
+				// refresh side menu
+				navigateTo($(data).find('#content').attr('class'));	// menu item id is in class of content container every page
+				
+				// refresh site title
+				document.title = "{{site.title}} - " + $('#breadcrumb > div > span.bc-page-title').text();
+				
+				$('pre, code').each(function(i, block) {
+					hljs.highlightBlock(block);
+				});
+				
+				// If you're using Google analytics, make sure the pageview is registered!
+				/*ga('send', 'pageview', {
+					'page': State.url,
+					'title': document.title
+				});*/
+				
+				// add watermarks to blocks
+				$('.compliance').prepend('<div>compliance</div>');
+				$('.note').prepend('<div>note</div>');
+				$('.warning').prepend('<div>important</div>');
+				
+				window.scrollTo(0,0);
+			});
+		});
+	}
+});
+</script>
+

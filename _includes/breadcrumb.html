@@ -1,0 +1,11 @@
+<div id="breadcrumb">
+	<div>
+    <a href="{{site.baseurl}}/" title="Home">SData Home</a>
+	{% if page.group == 'core' %} > <a class="ajax" href="{{site.baseurl}}/pages/core/0100/">SData Core Specification - version 1.1</a>{% endif %}
+	{% if page.group == 'sync' %} > <a class="ajax" href="{{site.baseurl}}/pages/sync/0000/">SData Synchronization - version 1.1</a>{% endif %}
+	{% if page.group == 'sdata-20' %} > <a class="ajax" href="{{site.baseurl}}/pages/20/01-0000/">SData 2.0</a>{% endif %}
+	{% if page.group != 'home' %}
+		{% if page.title %} > <span class="bc-page-title">{{page.title}}</span>{% endif %}
+	{% endif %}
+	</div>
+</div>

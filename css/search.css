@@ -1,0 +1,27 @@
+---
+---
+@charset "utf-8";
+
+div#results {padding-top: 20px;width: 80%;margin: 0 auto;}
+
+a.search-result {font-size: 18px;text-decoration:underline;}
+
+.search-result-body {font-size: 14px;color: #4D4F53;margin-top: 5px;}
+
+#search-results span.sdata-20 {
+	background-image: url({{site.baseurl}}/img/sdata20.png);
+	/*padding-left: 70px;*/
+}
+#search-results span.core {background-image: url({{site.baseurl}}/img/sdata11core.png);}
+#search-results span.sync {background-image: url({{site.baseurl}}/img/sdata11sync.png);}
+#search-results .sort {
+	display: block;
+	background-repeat: no-repeat;
+	float: left;
+	margin-right: 10px;
+	width: 63px;
+	height: 30px;
+}
+
+ul#search-results li {padding-bottom: 20px;}
+

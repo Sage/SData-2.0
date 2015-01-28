@@ -1,0 +1,132 @@
+---
+layout: default
+---
+
+<script>
+    $(document).ready(function() {
+        $('pre, code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+		
+		/*** Dynamic search ***/
+		/*$("#search_input").jekyllSearch({
+			jsonFile: "{{site.baseurl}}/search.json",
+			baseUrl: "{{site.baseurl}}",
+			searchResultsTitle: "<h1>Search results:</h1>",
+			template: "<a target='_blank' class='search-result' href='{{site.baseurl}}{url}'>{title}</a><br />",
+			body: "content",	// show content
+			bodyLen: 400,
+			searchResults : "#content",
+			limit: '25',
+			noResults: "<h2>No results.</h2>"
+		});*/
+		/*JekyllSearch.init({
+			searchInput: document.getElementById("search"),
+			jsonFile: "{{site.baseurl}}/search.json",
+			searchResultsHeader: "<h1>Search results:</h1>",
+			template: "<a class='search-result' href='{{site.baseurl}}{url}'>{title}</a><br />",
+			searchResults : document.getElementById("content"),
+			limit: '25',
+			noResults: "<h2>Nothing found.</h2>",
+			fuzzy: true
+		});*/
+		
+		
+		// add watermarks to blocks
+		$('.compliance').prepend('<div>compliance</div>');
+		$('.note').prepend('<div>note</div>');
+		$('.warning').prepend('<div>important</div>');
+		
+		//set subblock backgroundColor from parent block
+		$('blockquote').parent('blockquote').find('blockquote').css('backgroundColor', $('blockquote').parent('blockquote').css('backgroundColor'));
+    });
+</script>
+
+{% assign prev = null %}
+{% assign prevPage = null %}
+
+{% assign flagNext = 0 %}
+{% assign nextPage = null %}
+
+{% for p in site.pages %}
+	{% if p.layout != null %}
+		{% if p.group == page.group %}
+			{% if (p.url == page.url) && (prevPage != null) %}
+				{% assign prevPage = prev %}
+			{% else %}
+				{% assign prev = p.url %}
+			{% endif %}
+
+			{% if flagNext == 1 %}
+				{% assign flagNext = 0 %}
+				{% assign nextPage = p.url %}
+			{% endif %}
+			{% if (p.url == page.url) %}
+				{% assign flagNext = 1 %}
+			{% endif %}
+		{% endif %}
+	{% endif %}
+{% endfor %}
+
+<div id="bodyContainer">
+	
+	<!-- breadcrumb's old position -->
+	
+	<div id="contentBorder">
+		
+		<div id="sidemenu">
+			
+			<!--input type="text" name="q" id="search_input" class="search-field" placeholder="Search.." autocomplete="off" required-->
+			
+			{% include sidebar.html %}
+		
+		</div>
+		
+		<div id="content" class="{{page.group}}_{{ page.name | replace:'.','_' }}">
+
+			{% include breadcrumb.html %}
+		
+			<div id="contentBorderTop">
+			
+				<div style="float: right; clear: none;" id="prevNextTop">
+					{% if prevPage != null %}
+					<a class="ajax" style="padding-right: 15px;" href="{{site.baseurl}}{{prevPage}}"><img border="0" src="{{site.baseurl}}/img/button-prev.png" alt="Previous Page Arrow" title="Previous Page"></a>
+					{% endif %}
+					<space></space><space></space>
+					{% if nextPage != null %}
+					<a class="ajax" href="{{site.baseurl}}{{nextPage}}"><img border="0" src="{{site.baseurl}}/img/button-next.png" alt="Next Page Arrow" title="Next Page"></a>
+					{% endif %}
+				</div>
+				
+			</div>
+			
+			<div class="outer-content">
+			<div class="inner-content">
+
+				<h1 class="document-name">{{page.title}}</h1>
+			
+				{{ content }}
+			
+			</div>
+			</div>
+			
+			<div id="contentBorderBottom">
+			
+				<div style="float: right; clear: none;" id="prevNextBottom">
+				{% if prevPage != null %}
+				<a class="ajax" style="padding-right: 15px;" href="{{site.baseurl}}{{prevPage}}"><img border="0" src="{{site.baseurl}}/img/button-prev.png" alt="Previous Page Arrow" title="Previous Page"></a>
+				{% endif %}
+				<space></space><space></space>
+				{% if nextPage %}
+				<a class="ajax" href="{{site.baseurl}}{{nextPage}}"><img border="0" src="{{site.baseurl}}/img/button-next.png" alt="Next Page Arrow" title="Next Page"></a>
+				{% endif %}
+			</div>
+			
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<div class="push"></div>
+</div>
