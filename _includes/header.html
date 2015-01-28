@@ -4,15 +4,12 @@
 	<a class="logo" href="{{site.baseurl}}/" title="Home"><img style="margin-right: 15px;" align="absmiddle" alt="Sage Data" src="{{ site.baseurl }}/img/sage_logo_negative_white_120h.png"></a>
 	<h1 style="padding-top: 32px;">SData Specification</h1>
 
-	{% assign layout = page.url | truncate: 9 %}
-	{% assign layout = layout | remove:'/' %}
-	{% if (layout == 'pages...') %}
 		<div class="search">
 			<form name="search-form" action="{{site.baseurl}}/search/" method="get" target="_blank">
 				<input type="text" name="q" id="search" class="search-field" placeholder="Search..." autocomplete="off" required><input type="submit" value="" style="background-image: url({{site.baseurl}}/img/button-next.png);border: solid 0px #000000;" onclick="if(document.getElementById('search').value.trim().length > 3) document.forms['search-form'].submit(); else return false;" />
 			</form>
 		</div>
-	{% endif %}
+
   </div>
 
 </header>
