@@ -5,9 +5,9 @@ level: 0
 title: SData on GitHub
 ---
 
-# Welcome ! 
+# Welcome to SData! 
 
-This repository provides technical information on the version 2.0, 1.1 and synchronization of the standard.
+This site provides technical information on the version 2.0, 1.1 and synchronization of the standard.
 
 SData is a web toolkit, promoting the development of REST-orientated
           services and their consumption. It consists of a small,
@@ -15,7 +15,7 @@ SData is a web toolkit, promoting the development of REST-orientated
           optional mechanisms solving common implementation challenges in a
           consistent manner.
 
-The version 2.0 of the standard delivers
+Version 2.0 of the standard is current. It expands upon the 1.1 version providing
           additions aimed towards the needs of web product- and interface
           definitions. The focal points of the new release are:
 
