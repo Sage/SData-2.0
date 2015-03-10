@@ -64,3 +64,5 @@ ul.top-nav a.active#core, ul.top-nav a.active#sync, ul.top-nav a.active#sdata-20
 ul.top-nav a.active, ul.top-nav a:hover {background-position: 95% 16px !important;}
 ul.top-nav li {width: 69%;}
 ul.top-nav li.active {width: 100%;}
+
+ul.top-nav a#issues {color:#39845a !important;float: left;font-weight: bold;text-decoration: underline;padding-top: 50px;padding-left: 4px;}
