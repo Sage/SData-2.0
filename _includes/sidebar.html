@@ -29,7 +29,7 @@ $(document).ready(function(){
 });
 </script>
 
-{% assign categories = "home|core|sync|sdata-20" | split: "|" %}
+{% assign categories = "home|core|sync|sdata-20|issues" | split: "|" %}
 
 <ul class="top-nav">
 	<li class="{% if page.group == 'home' %}active{% endif %}">
@@ -44,6 +44,7 @@ $(document).ready(function(){
 	<li class="{% if page.group == 'sdata-20' %}active{% endif %}">
 		<a id="sdata-20" class="{% if page.group == 'sdata-20' %}active{% endif %}" href="{{site.baseurl}}/pages/20/01-0000/">SData 2.0</a>
 	</li>
+	<a id="issues" href="https://github.com/Sage/SData-2.0/issues">Your comments?</a>
 </ul>
 
 {% for category in categories %}
