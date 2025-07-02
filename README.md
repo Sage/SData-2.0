@@ -1,4 +1,15 @@
-#Welcome to our SData 2.0 file repository
+# Important Notice Regarding SDATA
+ 
+Please be advised that all support for **SDATA** has been discontinued, effective immediately.
+ 
+The application will remain available for download until **30 September 2025**. After this date, it will no longer be accessible.
+ 
+Furthermore, this GitHub repository will be **decommissioned** on the same date.
+
+
+
+
+# Welcome to our SData 2.0 file repository
 
 This repository contains technical information defining the SData version 2.0 standard. The contents are to be viewed as extensions and amendments to the current [version 1.1](http://interop.sage.com/daisy/sdata/Introduction.html) of the standard.
 
